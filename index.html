@@ -5,36 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <script id="vshader" type="x-shader/x-vertex">
-        
-        attribute vec2 vTexCoord;
-        attribute vec2 vPosition;
-
-        uniform mat2 uRotation;
-        uniform float uTime;
-
-        varying vec2 v_texCoord;
-        
-        void main() {
-            v_texCoord = vTexCoord;
-            gl_Position = vec4(uRotation * vPosition, uTime * vPosition.x * 3.0, 1.0);
-            gl_Position.x *= pow(0.7, gl_Position.z);
-            gl_Position.y *= pow(0.7, gl_Position.z);
-        }
+<body style="padding: 0; margin: 0;">
+    <canvas width="800" height="600" id="canvas" style="background-color: #ccc;"></canvas>
+    <script src="/game/game.js"></script>
+    <script>
+        let game = new Game({
+            canvas: document.querySelector('#canvas'),
+        });
+        game.run();
     </script>
-
-    <script id="fshader" type="x-shader/x-fragment">
-        varying highp vec2 v_texCoord;
-        uniform sampler2D uSampler;
-        void main()
-        {
-            gl_FragColor = texture2D(uSampler, v_texCoord);
-        }
-    </script>
-
-    <canvas width="1280" height="720" id="canvas"></canvas>
-
-    <script src="engine.js"></script>
 </body>
 </html>
